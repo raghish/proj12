@@ -1,0 +1,42 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class TrafficLight {
+
+    private enum LightColor {
+        RED, GREEN, YELLOW
+    }
+
+    private LightColor currentColor;
+    private Timer timer;
+
+    public TrafficLight() {
+        currentColor = LightColor.RED; // Start with red light
+        timer = new Timer();
+        startTrafficLight();
+    }
+
+    private void startTrafficLight() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                switch (currentColor) {
+                    case RED:
+                        currentColor = LightColor.GREEN;
+                        break;
+                    case GREEN:
+                        currentColor = LightColor.YELLOW;
+                        break;
+                    case YELLOW:
+                        currentColor = LightColor.RED;
+                        break;
+                }
+                System.out.println("Current Light: " + currentColor);
+            }
+        }, 0, 3000); // Change light every 3 seconds
+    }
+
+    public static void main(String[] args) {
+        new TrafficLight();
+    }
+}
